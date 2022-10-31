@@ -1,6 +1,6 @@
 package br.com.felix.projeto.services;
 
-import br.com.felix.projeto.controller.ResourceNotFounExceptionHandler;
+import br.com.felix.projeto.Exception.ResourceNotFounExceptionHandler;
 import br.com.felix.projeto.model.Person;
 import br.com.felix.projeto.repositories.PersonRepositories;
 import org.springframework.beans.factory.annotation.Autowired;

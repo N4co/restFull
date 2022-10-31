@@ -1,4 +1,4 @@
-package br.com.felix.projeto.controller;
+package br.com.felix.projeto.Exception;
 
 import br.com.felix.projeto.Exception.ExceptionResponse;
 import org.springframework.http.HttpStatus;
