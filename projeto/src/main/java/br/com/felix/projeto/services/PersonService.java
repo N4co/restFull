@@ -1,6 +1,7 @@
 package br.com.felix.projeto.services;
 
 import br.com.felix.projeto.Exception.ResourceNotFounExceptionHandler;
+import br.com.felix.projeto.controller.PersonController;
 import br.com.felix.projeto.model.Person;
 import br.com.felix.projeto.repositories.PersonRepositories;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ public class PersonService {
 
     private static final long serialVersionUID = 1L;
     private final Logger log = Logger.getLogger(PersonService.class.getName());
+
     @Autowired
     private PersonRepositories repositories;
 

@@ -31,15 +31,15 @@ public class PersonController implements Serializable {
         return service.findById(id);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.POST,
-            produces = MediaType.APPLICATION_JSON_VALUE,
-            consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Person created(@RequestBody Person person) {
+    @RequestMapping(method = RequestMethod.POST,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+               public Person created(@RequestBody Person person) {
         return service.created(person);
 
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET,
+    @RequestMapping(method = RequestMethod.PUT,
             produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE)
     public Person update(@RequestBody Person person) {
