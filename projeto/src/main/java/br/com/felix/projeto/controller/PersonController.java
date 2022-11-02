@@ -5,6 +5,7 @@ import br.com.felix.projeto.repositories.PersonRepositories;
 import br.com.felix.projeto.services.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.Serializable;
@@ -25,31 +26,28 @@ public class PersonController implements Serializable {
         return service.findAll();
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping (value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Person findById(@PathVariable(value = "id") Long id) {
         return service.findById(id);
     }
 
-    @RequestMapping(method = RequestMethod.POST,
-            consumes = MediaType.APPLICATION_JSON_VALUE,
+    @PostMapping (consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
                public Person created(@RequestBody Person person) {
         return service.created(person);
 
     }
 
-    @RequestMapping(method = RequestMethod.PUT,
-            produces = MediaType.APPLICATION_JSON_VALUE,
+    @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE)
     public Person update(@RequestBody Person person) {
         return service.update(person);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    public void delete(@PathVariable (value = "id") Long id) {
+    @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> delete(@PathVariable (value = "id") Long id) {
               service.delete(id);
+              return ResponseEntity.noContent().build();
     }
 }
 
