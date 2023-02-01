@@ -1,29 +1,21 @@
-package br.com.felix.projeto.model;
+package br.com.felix.projeto.data.v2;
 
-import jakarta.persistence.*;
-
+import java.io.Serial;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Objects;
 
-@Entity
-@Table(name = "person")
-public class Person implements Serializable {
+
+public class PersonVo2 implements Serializable {
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(name = "first_name", nullable = false, length = 40)
-
     private String firstName;
-    @Column(name = "last_name", nullable = false, length = 40)
     private String lastName;
-    @Column(name = "address", nullable = false, length = 40)
     private String address;
-
-    @Column(name = "gender", nullable = false, length = 20)
     private String gender;
-    public Person() {
+
+    private Date happyBirthay;
+    public PersonVo2() {
     }
     public Long getId() {
         return id;
@@ -40,35 +32,36 @@ public class Person implements Serializable {
     public String getLastName() {
         return lastName;
     }
-    public void setLastName(String lastName) {
+    public void setLastName(String lastName)
+    {
         this.lastName = lastName;
     }
-
     public String getAddress() {
         return address;
     }
-
     public void setAddress(String address) {
         this.address = address;
     }
-
     public String getGender() {
         return gender;
     }
-
     public void setGender(String gender) {
         this.gender = gender;
     }
-
+    public Date getHappyBirthay() {
+        return happyBirthay;
+    }
+    public void setHappyBirthay(Date happyBirthay) {
+        this.happyBirthay = happyBirthay;
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Person that)) return false;
-        return Objects.equals(id, that.id) && Objects.equals(firstName, that.firstName) && Objects.equals(lastName, that.lastName) && Objects.equals(address, that.address) && Objects.equals(gender, that.gender);
+        if (!(o instanceof PersonVo2 personVo2)) return false;
+        return Objects.equals(id, personVo2.id) && Objects.equals(firstName, personVo2.firstName) && Objects.equals(lastName, personVo2.lastName) && Objects.equals(address, personVo2.address) && Objects.equals(gender, personVo2.gender) && Objects.equals(happyBirthay, personVo2.happyBirthay);
     }
-
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, address, gender);
+        return Objects.hash(id, firstName, lastName, address, gender, happyBirthay);
     }
 }

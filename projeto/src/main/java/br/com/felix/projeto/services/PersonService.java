@@ -1,7 +1,10 @@
 package br.com.felix.projeto.services;
 
 import br.com.felix.projeto.Exception.ResourceNotFounExceptionHandler;
-import br.com.felix.projeto.controller.PersonController;
+import br.com.felix.projeto.data.v1.PersonVo;
+import br.com.felix.projeto.data.v2.PersonVo2;
+import br.com.felix.projeto.mapper.DozzerMapper;
+import br.com.felix.projeto.mapper.custom.PersonMapper;
 import br.com.felix.projeto.model.Person;
 import br.com.felix.projeto.repositories.PersonRepositories;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,39 +15,45 @@ import java.util.logging.Logger;
 
 @Service
 public class PersonService {
-
-    private static final long serialVersionUID = 1L;
     private final Logger log = Logger.getLogger(PersonService.class.getName());
-
     @Autowired
     private PersonRepositories repositories;
+    @Autowired
+    private PersonMapper personMapper;
 
-    public List<Person> findAll() {
+    public List<PersonVo> findAll() {
 
         log.info("search or people");
 
-        return (List<Person>) repositories.findAll();
+        return DozzerMapper.parseListObject(repositories.findAll(), PersonVo.class);
     }
-    public Person findById(Long id) {
+    public PersonVo findById(Long id) {
 
         log.info("search or person");
 
-        return repositories.findById(id)
+       var entity = repositories.findById(id)
                 .orElseThrow(() -> new ResourceNotFounExceptionHandler("No records found for this id"));
-
+        return DozzerMapper.parseObject(entity, PersonVo.class);
     }
 
-    public Person created(Person person) {
+    public PersonVo created(PersonVo person) {
 
         log.info("created or person");
+        var entity = DozzerMapper.parseObject(person, Person.class);
+        var vo = DozzerMapper.parseObject(repositories.save(entity ), PersonVo.class);
+        return vo;
+    }
+   public PersonVo2 createdV2(PersonVo2 person) {
 
-        return repositories.save(person);
+        log.info("created or personV2");
+        var entity = personMapper.convertVoToEntity(person);
+        var vo = personMapper.convertEntityToVo(repositories.save(entity));
+        return vo;
     }
 
-    public Person update(Person person) {
+    public PersonVo update(PersonVo person) {
 
         log.info("updating or person");
-
         var entity = repositories.findById(person.getId())
                 .orElseThrow(() -> new ResourceNotFounExceptionHandler("No records found for this id"));
 
@@ -52,7 +61,9 @@ public class PersonService {
         person.setLastName(person.getLastName());
         person.setAddress(person.getAddress());
         person.setGender(person.getGender());
-        return repositories.save(person);
+
+        var vo = DozzerMapper.parseObject(repositories.save(entity), PersonVo.class);
+        return vo;
     }
 
     public void  delete (Long id ) {

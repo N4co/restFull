@@ -1,7 +1,7 @@
 package br.com.felix.projeto.controller;
 
-import br.com.felix.projeto.model.Person;
-import br.com.felix.projeto.repositories.PersonRepositories;
+import br.com.felix.projeto.data.v1.PersonVo;
+import br.com.felix.projeto.data.v2.PersonVo2;
 import br.com.felix.projeto.services.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -12,39 +12,42 @@ import java.io.Serializable;
 import java.util.List;
 
 @RestController
-@RequestMapping("/person")
-public class PersonController implements Serializable {
-    private static final long serialVersionUID = 1L;
-
+@RequestMapping("/api/person/v1")
+public class PersonController  {
 
     @Autowired
     private PersonService service;
 
     @RequestMapping(method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Person> findAll() {
+            produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, "application/x-yaml"})
+    public List<PersonVo> findAll() {
         return service.findAll();
     }
 
-    @GetMapping (value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Person findById(@PathVariable(value = "id") Long id) {
+    @GetMapping (value = "/{id}", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, "application/x-yaml"})
+    public PersonVo findById(@PathVariable(value = "id") Long id) {
+
         return service.findById(id);
     }
 
-    @PostMapping (consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-               public Person created(@RequestBody Person person) {
+    @PostMapping (consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, "application/x-yaml"},
+    produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, "application/x-yaml"})
+               public PersonVo created(@RequestBody PersonVo person) {
         return service.created(person);
-
     }
+   @PostMapping (value = "/v2", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    public PersonVo2 createdV2(@RequestBody PersonVo2 person) {
+        return service.createdV2(person);
 
-    @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE,
-            consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Person update(@RequestBody Person person) {
+   }
+
+    @PutMapping(produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, "application/x-yaml"},
+            consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, "application/x-yaml"})
+    public PersonVo update(@RequestBody PersonVo person) {
         return service.update(person);
     }
 
-    @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(value = "/{id}")
     public ResponseEntity<?> delete(@PathVariable (value = "id") Long id) {
               service.delete(id);
               return ResponseEntity.noContent().build();

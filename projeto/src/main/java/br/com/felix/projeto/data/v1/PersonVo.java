@@ -1,29 +1,24 @@
-package br.com.felix.projeto.model;
+package br.com.felix.projeto.data.v1;
 
-import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Objects;
 
-@Entity
-@Table(name = "person")
-public class Person implements Serializable {
+
+@JsonPropertyOrder({"id","firstName","lastName","address", "gender"})
+public class PersonVo implements Serializable {
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "first_name", nullable = false, length = 40)
-
     private String firstName;
-    @Column(name = "last_name", nullable = false, length = 40)
     private String lastName;
-    @Column(name = "address", nullable = false, length = 40)
     private String address;
-
-    @Column(name = "gender", nullable = false, length = 20)
     private String gender;
-    public Person() {
+
+    public PersonVo() {
     }
     public Long getId() {
         return id;
@@ -40,11 +35,14 @@ public class Person implements Serializable {
     public String getLastName() {
         return lastName;
     }
-    public void setLastName(String lastName) {
+
+    public void setLastName(String lastName)
+    {
         this.lastName = lastName;
     }
 
     public String getAddress() {
+
         return address;
     }
 
@@ -63,8 +61,8 @@ public class Person implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Person that)) return false;
-        return Objects.equals(id, that.id) && Objects.equals(firstName, that.firstName) && Objects.equals(lastName, that.lastName) && Objects.equals(address, that.address) && Objects.equals(gender, that.gender);
+        if (!(o instanceof PersonVo personVo)) return false;
+        return Objects.equals(id, personVo.id) && Objects.equals(firstName, personVo.firstName) && Objects.equals(lastName, personVo.lastName) && Objects.equals(address, personVo.address) && Objects.equals(gender, personVo.gender);
     }
 
     @Override
