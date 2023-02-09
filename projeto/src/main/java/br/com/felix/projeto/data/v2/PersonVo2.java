@@ -1,6 +1,6 @@
 package br.com.felix.projeto.data.v2;
 
-import java.io.Serial;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;

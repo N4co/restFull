@@ -1,10 +1,10 @@
 package br.com.felix.projeto.unitests.mock;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import br.com.felix.projeto.data.v1.PersonVo;
 import br.com.felix.projeto.model.Person;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 
@@ -50,7 +50,7 @@ public class MockPerson {
         person.setAddress("Addres Test" + number);
         person.setFirstName("First Name Test" + number);
         person.setGender(((number % 2)==0) ? "Male" : "Female");
-        person.setId(number.longValue());
+        person.setKey(number.longValue());
         person.setLastName("Last Name Test" + number);
         return person;
     }

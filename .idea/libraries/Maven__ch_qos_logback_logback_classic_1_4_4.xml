@@ -8,6 +8,7 @@
     </JAVADOC>
     <SOURCES>
       <root url="jar://$MAVEN_REPOSITORY$/ch/qos/logback/logback-classic/1.4.4/logback-classic-1.4.4-sources.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/junit/junit/4.13/junit-4.13-sources.jar!/" />
     </SOURCES>
   </library>
 </component>
