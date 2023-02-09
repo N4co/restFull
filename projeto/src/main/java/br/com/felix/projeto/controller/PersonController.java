@@ -4,16 +4,17 @@ import br.com.felix.projeto.data.v1.PersonVo;
 import br.com.felix.projeto.data.v2.PersonVo2;
 import br.com.felix.projeto.services.PersonService;
 import br.com.felix.projeto.util.MediaType;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/person/v1")
+@Tag(name="People", description = "Endpoints Manager of people")
 public class PersonController  {
 
     @Autowired
@@ -21,6 +22,8 @@ public class PersonController  {
 
     @RequestMapping(method = RequestMethod.GET,
             produces = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML})
+    @Operation(summary="Find All People", description = "Find All People",
+    tags={"people"})
     public List<PersonVo> findAll() {
         return service.findAll();
     }
