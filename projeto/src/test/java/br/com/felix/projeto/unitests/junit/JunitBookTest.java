@@ -1,4 +1,4 @@
-package br.com.felix.projeto.junit;
+package br.com.felix.projeto.unitests.junit;
 
 import br.com.felix.projeto.Exception.RequiredObjectIsNullException;
 import br.com.felix.projeto.data.v1.BookVo;

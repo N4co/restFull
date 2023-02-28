@@ -23,6 +23,7 @@ public class PersonController  {
     @Autowired
     private PersonService service;
 
+
     @RequestMapping(method = RequestMethod.GET,
             produces = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML})
     @Operation(summary="Find All People", description = "Find All People",
@@ -67,6 +68,7 @@ public class PersonController  {
         return service.findById(id);
     }
 
+
     @PostMapping (consumes = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML},
     produces = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML})
     @Operation(summary="Add Person",
@@ -85,6 +87,8 @@ public class PersonController  {
                public PersonVo created(@RequestBody PersonVo person) {
         return service.created(person);
     }
+
+
 
     @PutMapping(produces = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML},
             consumes = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML})

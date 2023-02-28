@@ -1,9 +1,16 @@
+cors:
+  originPatterns: http://localhost:8080,http://localhost:3000,https://felix.com.br
+server:
+   port: 8888
+   security:
+     jwt:
+       token:
+         secret-key: 53cr37
+           expire-length: 3600000
 spring:
   datasource:
     driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/person_api
-    username: root
-    password: surfevida
+
   jpa:
     hibernate.ddl-auto: none
     generate-ddl: true

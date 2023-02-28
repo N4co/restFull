@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
 public class OpenApiConfig {
 
     @Bean
-    public OpenAPI customOpenAPI () {
+    OpenAPI customOpenAPI () {
         return new OpenAPI()
                 .info(new Info()
                         .title("API Restful Configuration Java 18 Spring 3.0.0-RC1")
