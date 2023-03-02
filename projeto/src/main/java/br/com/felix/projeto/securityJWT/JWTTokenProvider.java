@@ -29,11 +29,13 @@ public class JWTTokenProvider {
     @Autowired
     private UserDetailsService detailsService;
     Algorithm algorithm = null;
+
     @PostConstruct
     protected void init() {
         secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
         algorithm = Algorithm.HMAC256(secretKey.getBytes());
     }
+
     public TokenVO createAcessToken(String username, List<String> roles) {
         Date now = new Date();
         Date validity = new Date(now.getTime() + validateInMilliseconds);
@@ -42,6 +44,17 @@ public class JWTTokenProvider {
 
         return new TokenVO(username, true, now, validity, accessToken, refreshToken);
     }
+
+    public TokenVO refreshToken(String refreshToken) {
+        if(refreshToken.contains("Bearer ")) refreshToken =
+                refreshToken.substring("Bearer ".length());
+        JWTVerifier verifier = JWT.require(algorithm).build();
+        DecodedJWT decodedJWT = verifier.verify(refreshToken);
+        String username = decodedJWT.getSubject();
+        List<String> roles = decodedJWT.getClaim("roles").asList(String.class);
+        return  createAcessToken(username, roles);
+    }
+
     private String getAcessToken(String username, List<String> roles, Date now, Date validity) {
         String issueUrl = ServletUriComponentsBuilder.
                 fromCurrentContextPath().build().toUriString();
